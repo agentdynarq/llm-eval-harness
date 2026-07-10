@@ -1,0 +1,6 @@
+{"id": 1, "question": "What is the capital of France?", "prediction": "The capital of France is Paris.", "reference": "Paris"}
+{"id": 2, "question": "What does LoRA train?", "prediction": "LoRA trains small low-rank adapter matrices while keeping the base weights frozen.", "reference": "Small low-rank adapter matrices while the base model stays frozen."}
+{"id": 3, "question": "How many planets are in the solar system?", "prediction": "There are eight planets.", "reference": "Eight"}
+{"id": 4, "question": "What reduces hallucination in RAG?", "prediction": "Answering only from retrieved context.", "reference": "Grounding the answer in retrieved passages and saying when the answer is not present."}
+{"id": 5, "question": "What is 2 plus 2?", "prediction": "It equals five.", "reference": "4"}
+{"id": 6, "question": "Who wrote the play Hamlet?", "prediction": "Hamlet was written by William Shakespeare.", "reference": "William Shakespeare"}

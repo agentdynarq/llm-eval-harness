@@ -1,0 +1,4 @@
+# The metrics, runner and CLI use only the Python standard library.
+# These are only needed for the optional LLM-as-judge (evalkit/judge.py).
+openai>=1.0
+python-dotenv>=1.0
