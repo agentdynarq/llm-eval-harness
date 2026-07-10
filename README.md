@@ -1,5 +1,9 @@
 # llm-eval-harness
 
+[![tests](https://github.com/agentdynarq/llm-eval-harness/actions/workflows/tests.yml/badge.svg)](https://github.com/agentdynarq/llm-eval-harness/actions/workflows/tests.yml)
+![python](https://img.shields.io/badge/python-3.10%2B-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+
 A small, deterministic **evaluation harness** for language-model answers. You give it a file of predictions and reference answers, and it scores each one with several metrics and reports the aggregate. It is the piece that turns "the model seems fine" into a number you can track as you change prompts, models, or a RAG pipeline.
 
 The core metrics need no model and no API, so evaluation is fast and reproducible. An optional LLM-as-judge is included for the cases where exact strings are too strict.
