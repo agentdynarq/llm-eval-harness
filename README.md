@@ -22,6 +22,31 @@ When you tune a prompt, fine-tune a model, or tweak retrieval, you need to know 
 | `rouge_l` | F1 over the longest common subsequence of tokens (rewards correct ordering) |
 | `llm_judge` | Optional: a model rates the match 0 to 1 (needs an OpenAI key) |
 
+### Retrieval metrics (for RAG)
+
+Text metrics score the generated answer. `evalkit/retrieval.py` scores the step before it: did the retriever surface the right documents? Each takes a ranked list of retrieved ids and the relevant ids.
+
+| Metric | What it measures |
+|---|---|
+| `hit_rate` | Did any relevant document land in the top-k |
+| `precision` | Fraction of the top-k that is relevant |
+| `recall` | Fraction of the relevant documents found in the top-k |
+| `reciprocal_rank` | 1 / rank of the first relevant document (mean = MRR) |
+| `average_precision` | Precision averaged over the relevant hits (mean = MAP) |
+| `ndcg` | Rank-discounted gain, normalized; supports graded relevance |
+
+```python
+from evalkit import evaluate_retrieval
+
+cases = [
+    (["d2", "d1", "d3"], {"d2"}),   # (retrieved ranking, relevant ids)
+    (["d1", "d7", "d4"], {"d4"}),
+]
+scorecard = evaluate_retrieval(cases, k=3)
+# {'hit_rate': 1.0, 'precision': 0.33, 'recall': 1.0,
+#  'reciprocal_rank': 0.67 (MRR), 'average_precision': 0.67 (MAP), 'ndcg': ...}
+```
+
 ## Quickstart
 
 ```bash
@@ -73,6 +98,7 @@ llm-eval-harness/
   cli.py                run an evaluation from the command line
   evalkit/
     metrics.py          exact_match, contains, token_f1, rouge_l
+    retrieval.py        RAG retrieval metrics (hit_rate, MRR, MAP, nDCG, ...)
     dataset.py          load the predictions jsonl
     runner.py           apply metrics to every item and aggregate
     report.py           readable table + JSON export
@@ -89,9 +115,9 @@ python -m unittest discover -s tests -v
 
 ## Roadmap
 
-- Retrieval metrics (hit-rate, MRR) for RAG systems.
 - Per-metric confidence intervals via bootstrap.
 - Compare two runs side by side and flag regressions.
+- A CLI subcommand to score a retrieval run from a jsonl of (retrieved, relevant).
 
 ## License
 
